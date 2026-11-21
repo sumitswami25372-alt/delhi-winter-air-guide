@@ -6,7 +6,8 @@ import { categorizeAqi, findCleanestWindow, pm25TimesWhoGuideline } from "@/lib/
 import { formatHour, type AirSnapshot } from "@/lib/domain/recommendations";
 import type { Place } from "@/lib/domain/profile";
 import { cn } from "@/lib/utils";
-import { AQI_CLASSES, AqiScale } from "./aqi";
+import { AqiScale } from "./aqi";
+import { AQI_CLASSES } from "@/lib/ui/constants";
 
 function Pollutant({
   label,

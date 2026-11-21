@@ -19,7 +19,7 @@ async function fetchJson(url: string): Promise<unknown> {
 }
 
 export const getAirQuality = createServerFn({ method: "GET" })
-  .inputValidator((input: unknown) =>
+  .validator((input: unknown) =>
     z
       .object({ latitude: z.number().min(-90).max(90), longitude: z.number().min(-180).max(180) })
       .parse(input),
@@ -30,7 +30,7 @@ export const getAirQuality = createServerFn({ method: "GET" })
   });
 
 export const searchPlaces = createServerFn({ method: "GET" })
-  .inputValidator((input: unknown) =>
+  .validator((input: unknown) =>
     z.object({ query: z.string().trim().min(2).max(80) }).parse(input),
   )
   .handler(async ({ data }) => {

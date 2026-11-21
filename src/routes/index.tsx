@@ -2,16 +2,17 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle } from "lucide-react";
 import { useMemo, useState } from "react";
 import { AirStatus } from "@/components/app/air-status";
-import { AQI_CLASSES } from "@/components/app/aqi";
 import { ForecastChart } from "@/components/app/forecast-chart";
 import { LocationPicker } from "@/components/app/location-picker";
 import { RecommendationCard } from "@/components/app/recommendation-card";
 import { PageHeader } from "@/components/app/site-shell";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useAirQuality } from "@/hooks/use-air-quality";
 import { categorizeAqi } from "@/lib/domain/aqi";
 import { buildDailyPlan, buildRecommendations } from "@/lib/domain/recommendations";
 import { useProfile } from "@/lib/profile-store";
+import { AQI_CLASSES } from "@/lib/ui/constants";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -91,10 +92,18 @@ function TodayPage() {
             Next 24 hours
           </h2>
           <p className="mb-3 text-sm text-muted-foreground">Hourly US AQI forecast</p>
-          {air.data ? (
+          {air.isPending ? (
+            <div className="space-y-2 py-4" aria-busy="true" aria-label="Loading forecast">
+              <Skeleton className="h-44 w-full" />
+            </div>
+          ) : air.isError ? (
+            <p className="text-sm text-destructive" role="alert">
+              Forecast could not be loaded. Please refresh or try again later.
+            </p>
+          ) : air.data ? (
             <ForecastChart points={air.data.hourly} />
           ) : (
-            <p className="text-sm text-muted-foreground">Waiting for data…</p>
+            <p className="text-sm text-muted-foreground">No forecast data available.</p>
           )}
         </section>
       </div>

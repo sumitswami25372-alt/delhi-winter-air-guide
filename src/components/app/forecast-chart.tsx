@@ -1,7 +1,7 @@
 import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { categorizeAqi, type HourlyPoint } from "@/lib/domain/aqi";
 import { formatHour } from "@/lib/domain/recommendations";
-import { AQI_FILL_VAR } from "./aqi";
+import { AQI_FILL_VAR } from "@/lib/ui/constants";
 
 export function ForecastChart({ points }: { points: HourlyPoint[] }) {
   const data = points

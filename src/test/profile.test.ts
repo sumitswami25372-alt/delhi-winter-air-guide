@@ -96,7 +96,7 @@ describe("parseStoredProfile", () => {
   it("strips unknown fields (Zod strips by default)", () => {
     const withExtra = { ...DEFAULT_PROFILE, extraField: "should be removed" };
     const result = parseStoredProfile(JSON.stringify(withExtra));
-    expect((result as unknown as Record<string, unknown>).extraField).toBeUndefined();
+    expect((result as unknown as Record<string, unknown>)["extraField"]).toBeUndefined();
   });
 });
 
